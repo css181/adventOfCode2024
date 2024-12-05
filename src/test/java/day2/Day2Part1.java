@@ -21,12 +21,12 @@ public class Day2Part1 {
 	@Test 
 	void convertFileToArrayOfCharArrayTest() {
 		ArrayList<Report> expectedReports = new ArrayList<Report>();
-		expectedReports.add(new ReportDecreasing("7 6 4 2 1"));
-		expectedReports.add(new ReportIncreasing("1 2 7 8 9"));
-		expectedReports.add(new ReportDecreasing("9 7 6 2 1"));
-		expectedReports.add(new ReportIncreasing("1 3 2 4 5"));
-		expectedReports.add(new ReportDecreasing("8 6 4 4 1"));
-		expectedReports.add(new ReportIncreasing("1 3 6 7 9"));
+		expectedReports.add(new ReportDecreasing(1,"7 6 4 2 1"));
+		expectedReports.add(new ReportIncreasing(2,"1 2 7 8 9"));
+		expectedReports.add(new ReportDecreasing(3,"9 7 6 2 1"));
+		expectedReports.add(new ReportIncreasing(4,"1 3 2 4 5"));
+		expectedReports.add(new ReportDecreasing(5,"8 6 4 4 1"));
+		expectedReports.add(new ReportIncreasing(6,"1 3 6 7 9"));
 		
 		assertEquals(expectedReports, day2.getReports());
 	}

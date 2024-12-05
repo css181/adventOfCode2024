@@ -5,15 +5,21 @@ import java.util.Arrays;
 
 public abstract class Report {
 
+	public int id;
 	private ArrayList<Integer> levels = new ArrayList<>();
 	
-	public Report(String inputLine) {
+	public Report(int id, String inputLine) {
+		this.id = id;
 		int[] arr = Arrays.stream(inputLine.split(" "))
                 .mapToInt(Integer::parseInt)
                 .toArray();
 		for (int elem : arr) {
 			levels.add(elem);
 		}
+	}
+	public Report(int id, ArrayList<Integer> levels) {
+		this.id = id;
+		this.levels = levels;
 	}
 	
 	protected ArrayList<Integer> getLevels() {

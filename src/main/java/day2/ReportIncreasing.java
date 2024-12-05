@@ -1,11 +1,17 @@
 package day2;
 
+import java.util.ArrayList;
+
 public class ReportIncreasing extends Report {
 
-	public ReportIncreasing(String inputLine) {
-		super(inputLine);
+	public ReportIncreasing(int id, String inputLine) {
+		super(id, inputLine);
 	}
-
+	public ReportIncreasing(int id, ArrayList<Integer> levels) {
+		super(id, levels);
+		this.setLevels(levels);
+	}
+	
 	@Override
 	public boolean isSafe() {
 		int prior = getLevels().get(0);
@@ -25,6 +31,6 @@ public class ReportIncreasing extends Report {
 
 	@Override
 	public String toString() {
-		return "Increasing ~ levels: " + getLevels();
+		return "Increasing ~ " + id + ": levels: " + getLevels();
 	}
 }

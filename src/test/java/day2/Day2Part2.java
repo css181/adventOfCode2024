@@ -18,16 +18,13 @@ public class Day2Part2 {
 	}
 	
 	@Test 
-	void can_calculate_num_of_times_X_is_in_rightList() {
-//		assertEquals(3, day2.numOfTimesNumIsInRightList(3));
-//		assertEquals(1, day2.numOfTimesNumIsInRightList(4));
-//		assertEquals(0, day2.numOfTimesNumIsInRightList(2));
-//		assertEquals(0, day2.numOfTimesNumIsInRightList(1));
+	void can_verify_total_safe_with_dampener_is_4() {
+		assertEquals(4, day2.totalSafeWithDampenerReports());
 	}
 	
 	@Test
 	void part2_answer() throws Exception {
 		day2 = new Day2();
-//		System.out.println(day2.getTotalSimilarityScore());
+		System.out.println(day2.totalSafeWithDampenerReports());
 	}
 }

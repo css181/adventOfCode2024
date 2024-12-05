@@ -1,9 +1,15 @@
 package day2;
 
+import java.util.ArrayList;
+
 public class ReportDecreasing extends Report {
 
-	public ReportDecreasing(String inputLine) {
-		super(inputLine);
+	public ReportDecreasing(int id, String inputLine) {
+		super(id, inputLine);
+	}
+	public ReportDecreasing(int id, ArrayList<Integer> levels) {
+		super(id, levels);
+		this.setLevels(levels);
 	}
 
 	@Override
@@ -25,6 +31,6 @@ public class ReportDecreasing extends Report {
 
 	@Override
 	public String toString() {
-		return "Decreasing ~ levels: " + getLevels();
+		return "Decreasing ~ " + id + ": levels: " + getLevels();
 	}
 }
