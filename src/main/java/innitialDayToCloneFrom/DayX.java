@@ -19,6 +19,7 @@ public class DayX {
 		populateInput();
 	}
 	public DayX(File file) {
+		leftList = new ArrayList<Long>();
 		setFileToUse(file);
 		populateInput();
 	}

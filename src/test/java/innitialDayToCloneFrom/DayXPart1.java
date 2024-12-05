@@ -19,7 +19,7 @@ public class DayXPart1 {
 	}
 	
 	@Test 
-	void convertFileToArrayOfCharArrayTest() {
+	void verify_Input() {
 		ArrayList<Long> expectedLeftList = new ArrayList<Long>();
 		ArrayList<Long> expectedRightList = new ArrayList<Long>();
 		expectedLeftList.add(3l);

@@ -8,7 +8,7 @@ import java.io.File;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class Day1Part2 {
+public class DayXPart2 {
 
 	private DayX dayX;
 	
