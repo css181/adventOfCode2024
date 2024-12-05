@@ -10,6 +10,7 @@ public class Day3 {
 
 	private static File file;
 	protected ArrayList<MulInstruction> validMulInstructions = new ArrayList<MulInstruction>();
+	protected ArrayList<MulInstruction> doDontMulInstructions = new ArrayList<MulInstruction>();
 
 	public Day3() {
 		URL fileName = getClass().getResource("Input.txt");
@@ -18,6 +19,7 @@ public class Day3 {
 	}
 	public Day3(File file) {
 		validMulInstructions = new ArrayList<MulInstruction>();
+		doDontMulInstructions = new ArrayList<MulInstruction>();
 		setFileToUse(file);
 		populateInput();
 	}
@@ -29,8 +31,17 @@ public class Day3 {
 	public void populateInput() {
 		String input = FileUtility.convertFileToString(file);
 		String remaining = input;
-		do {			
+		boolean onDo = true;
+		do {
+			int dont = remaining.indexOf("don't()");
 			int pos = remaining.indexOf("mul(");
+			if(dont!=-1 && dont< pos) {
+				onDo = false;
+			}
+			int doPos = remaining.indexOf("do()");
+			if(doPos!=-1 && doPos< pos) {
+				onDo = true;
+			}
 			if(pos==-1) { 
 				break;
 			}
@@ -46,6 +57,8 @@ public class Day3 {
 			}
 			if(left!=-1 && right!=-1) {
 				validMulInstructions.add(new MulInstruction(left, right));
+				if(onDo)
+					doDontMulInstructions.add(new MulInstruction(left, right));
 				remaining = remaining.substring(paren+1);
 			} else {				
 				remaining = remaining.substring(1);
@@ -55,10 +68,13 @@ public class Day3 {
 	public ArrayList<MulInstruction> getValidMulInstructions() {
 		return validMulInstructions;
 	}
+	public ArrayList<MulInstruction> getDoDontMulInstructions() {
+		return doDontMulInstructions;
+	}
 	
-	public Long getSumOfAllMulInstructions() {
+	public Long getSumOfAllMulInstructions(ArrayList<MulInstruction> instructions) {
 		long total = 0;
-		for (MulInstruction mulInstruction : validMulInstructions) {
+		for (MulInstruction mulInstruction : instructions) {
 			total+= mulInstruction.getLeft() * mulInstruction.getRight();
 		}
 		return total;

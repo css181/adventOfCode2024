@@ -4,6 +4,7 @@ package day3;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,16 +19,23 @@ public class Day3Part2 {
 	}
 	
 	@Test 
-	void can_calculate_num_of_times_X_is_in_rightList() {
-//		assertEquals(3, day3.numOfTimesNumIsInRightList(3));
-//		assertEquals(1, day3.numOfTimesNumIsInRightList(4));
-//		assertEquals(0, day3.numOfTimesNumIsInRightList(2));
-//		assertEquals(0, day3.numOfTimesNumIsInRightList(1));
+	void verify_Input() {
+		ArrayList<MulInstruction> expectedMulInstructionList = new ArrayList<MulInstruction>();
+		
+		expectedMulInstructionList.add(new MulInstruction(2, 4));
+		expectedMulInstructionList.add(new MulInstruction(8, 5));
+		
+		assertEquals(expectedMulInstructionList, day3.getDoDontMulInstructions());
+	}
+	
+	@Test
+	void verify_sum_of_all_valid_mulInstructions_is_161() throws Exception {
+		assertEquals(48, day3.getSumOfAllMulInstructions(day3.getDoDontMulInstructions()));
 	}
 	
 	@Test
 	void part2_answer() throws Exception {
 		day3 = new Day3();
-//		System.out.println(day3.getTotalSimilarityScore());
+		System.out.println(day3.getSumOfAllMulInstructions(day3.getDoDontMulInstructions()));
 	}
 }

@@ -32,13 +32,12 @@ public class Day3Part1 {
 	
 	@Test
 	void verify_sum_of_all_valid_mulInstructions_is_161() throws Exception {
-		assertEquals(161, day3.getSumOfAllMulInstructions());
+		assertEquals(161, day3.getSumOfAllMulInstructions(day3.getValidMulInstructions()));
 	}
 	
 	@Test
 	void part1_answer() throws Exception {
 		day3 = new Day3();
-		System.out.println(day3.getValidMulInstructions());
-		System.out.println(day3.getSumOfAllMulInstructions());
+		System.out.println(day3.getSumOfAllMulInstructions(day3.getValidMulInstructions()));
 	}
 }
