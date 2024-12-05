@@ -56,15 +56,67 @@ public class Day5 {
 	}
 	
 	public Long getSumOfMiddleNumberOfEachValidUpdatePageList() {
-		long total = 0;
+		ArrayList<ArrayList<Integer>> validLists = new ArrayList<ArrayList<Integer>>();
 		for (ArrayList<Integer> pageList : updatePageLists) {
 			if(isListInOrder(pageList)) {
-				total+=getMiddleNumber(pageList);
+				validLists.add(pageList);
 			}
 		}
-		return total;
+		return getSumOfMiddleNumberOfEachPageListIn(validLists);
 	}
 	private long getMiddleNumber(ArrayList<Integer> pageList) {
 		return pageList.get((pageList.size()-1)/2);
+	}
+	
+	
+	public ArrayList<ArrayList<Integer>> getAllUnorderedPageLists() {
+		ArrayList<ArrayList<Integer>> unorderedPageLists = new ArrayList<ArrayList<Integer>>();
+		for (ArrayList<Integer> pageList : updatePageLists) {
+			if(!isListInOrder(pageList)) {
+				unorderedPageLists.add(pageList);
+			}
+		}
+		return unorderedPageLists;
+	}
+	
+	public ArrayList<ArrayList<Integer>> getAllFixedOrderedPageLists() {
+		ArrayList<ArrayList<Integer>> unorderedPageLists = getAllUnorderedPageLists();
+		ArrayList<ArrayList<Integer>> fixedPageLists = new ArrayList<ArrayList<Integer>>();
+		for (ArrayList<Integer> pageList : unorderedPageLists) {
+			int bailCount=0;
+			while (!isListInOrder(pageList) && bailCount < 1000) {
+				pageList = reOrderPageList(pageList);
+				bailCount++;
+			}
+			fixedPageLists.add(pageList);
+		}
+		return fixedPageLists;
+	}
+	
+	private ArrayList<Integer> reOrderPageList(ArrayList<Integer> pages) {
+		ArrayList<Integer> printedPages = new ArrayList<Integer>();
+		ArrayList<Integer> removedPages;
+		printedPages.add(pages.get(0));
+		for(int x=1; x<pages.size(); x++) {
+			removedPages = new ArrayList<Integer>();
+			for (OrderRule orderRule : orderRuleList) {
+				if(orderRule.getBeforePage()==pages.get(x) && printedPages.contains(orderRule.getAfterPage())) {
+					Integer intToRemove = orderRule.getAfterPage();
+					printedPages.remove(intToRemove);
+					removedPages.add(intToRemove);
+				}
+			}
+			printedPages.add(pages.get(x));
+			printedPages.addAll(removedPages);
+		}
+		return printedPages;
+	}
+	
+	public Long getSumOfMiddleNumberOfEachPageListIn(ArrayList<ArrayList<Integer>> pageLists) {
+		long total = 0;
+		for (ArrayList<Integer> pageList : pageLists) {
+			total+=getMiddleNumber(pageList);
+		}
+		return total;
 	}
 }
