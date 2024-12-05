@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import utilities.Coordinate;
 import utilities.FileUtility;
 
 public class Day4 {
@@ -134,5 +135,39 @@ public class Day4 {
 		total+=getTotalDiagonalUpFindsInPuzzle(new ArrayList<>(Arrays.asList('X','M','A','S')));
 		total+=getTotalDiagonalUpFindsInPuzzle(new ArrayList<>(Arrays.asList('S','A','M','X')));
 		return total;
+	}
+	
+	public Integer getTotalMAS_X_Finds() {
+		int total = 0;
+		ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
+		for(int row = 1; row<puzzle.size()-1; row++) {
+			for(int col = 1; col<puzzle.get(row).size() - 1; col++) {
+				if(puzzle.get(row).get(col)=='A') {
+					if(isMAS_X(row,col)) {
+						total++;
+						coords.add(new Coordinate(row+1, col+1));
+					}
+				}
+			}
+		}
+		return total;
+	}
+	private boolean isMAS_X(int rowOfA, int colOfA) {
+		if(puzzle.get(rowOfA-1).get(colOfA-1)=='M') {
+			return (puzzle.get(rowOfA-1).get(colOfA+1)=='M' &&
+					puzzle.get(rowOfA+1).get(colOfA-1)=='S' &&
+					puzzle.get(rowOfA+1).get(colOfA+1)=='S') ||
+					(puzzle.get(rowOfA-1).get(colOfA+1)=='S' &&
+					puzzle.get(rowOfA+1).get(colOfA-1)=='M' &&
+					puzzle.get(rowOfA+1).get(colOfA+1)=='S');
+		} else if(puzzle.get(rowOfA-1).get(colOfA-1)=='S') {
+			return (puzzle.get(rowOfA-1).get(colOfA+1)=='S' &&
+					puzzle.get(rowOfA+1).get(colOfA-1)=='M' &&
+					puzzle.get(rowOfA+1).get(colOfA+1)=='M') ||
+					(puzzle.get(rowOfA-1).get(colOfA+1)=='M' &&
+					puzzle.get(rowOfA+1).get(colOfA-1)=='S' &&
+					puzzle.get(rowOfA+1).get(colOfA+1)=='M');
+		}
+		return false;
 	}
 }

@@ -10,24 +10,21 @@ import org.junit.jupiter.api.Test;
 
 public class DayXPart2 {
 
-	private Day4 dayX;
+	private Day4 day4;
 	
 	@BeforeEach
 	public void setup() {
-		dayX = new Day4(new File(getClass().getResource("SampleInput.txt").getPath()));
+		day4 = new Day4(new File(getClass().getResource("SampleInput.txt").getPath()));
 	}
 	
 	@Test 
-	void can_calculate_num_of_times_X_is_in_rightList() {
-//		assertEquals(3, dayX.numOfTimesNumIsInRightList(3));
-//		assertEquals(1, dayX.numOfTimesNumIsInRightList(4));
-//		assertEquals(0, dayX.numOfTimesNumIsInRightList(2));
-//		assertEquals(0, dayX.numOfTimesNumIsInRightList(1));
+	void verify_MAS_xs_is_9() {
+		assertEquals(9, day4.getTotalMAS_X_Finds());
 	}
 	
 	@Test
 	void part2_answer() throws Exception {
-		dayX = new Day4();
-//		System.out.println(dayX.getAnswer());
+		day4 = new Day4();
+		System.out.println(day4.getTotalMAS_X_Finds());
 	}
 }
