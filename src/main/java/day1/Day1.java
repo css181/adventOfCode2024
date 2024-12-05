@@ -52,5 +52,19 @@ public class Day1 {
 		}
 		return total;
 	}
+	public Integer numOfTimesNumIsInRightList(long number) {
+		int total = 0;
+		for (Long elem : rightList) {
+			if(elem==number) { total++; }
+		}
+		return total;
+	}
+	public Long getTotalSimilarityScore() {
+		long total = 0;
+		for (Long elem : leftList) {
+			total+=(elem * numOfTimesNumIsInRightList(elem));
+		}
+		return total;
+	}
 
 }
