@@ -154,14 +154,36 @@ public class FileUtility {
 		return intArray;
 	}
 
-	public static ArrayList<ArrayList<Long>> convertFileToListOfIntList(File file, String seperator) {
+
+	public static ArrayList<ArrayList<Integer>> convertFileOfIntListsToListOfIntList(File file, String seperatorChar) {
+		ArrayList<ArrayList<Integer>> listOfLists = new ArrayList<ArrayList<Integer>>();
+		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+		    String line;
+		    ArrayList<Integer> numberList;
+		    while ((line = br.readLine()) != null) {
+		    	numberList = new ArrayList<>();
+		    	String[] numberArray = line.split(seperatorChar); 
+		        for (String num : numberArray) {
+		        	numberList.add(Integer.parseInt(num)); 
+		        }
+		        listOfLists.add(numberList);
+		    }
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return listOfLists;
+	}
+	
+	public static ArrayList<ArrayList<Long>> convertFileToListOfIntList(File file, String seperatorLine) {
 		ArrayList<ArrayList<Long>> listOfLists = new ArrayList<ArrayList<Long>>();
 		ArrayList<Long> curList;
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 		    String line;
 		    curList = new ArrayList<Long>();
 		    while ((line = br.readLine()) != null) {
-		    	if(line.equals(seperator)) {
+		    	if(line.equals(seperatorLine)) {
 		    		listOfLists.add(curList);
 		    		curList = new ArrayList<Long>();
 		    	} else {
