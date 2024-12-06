@@ -34,12 +34,12 @@ public class Day6 {
 	
 	//returns -1 if we walk into an obstruction.  
 	//returns 0 if we walk out of the area.
-	public int walk() {
+	public int walk(boolean replaceWithX) {
 		if(map.getDirection()==Map.GUARD_DIRECTION.UP) {
 			int col = map.getGuardSpot().getX();
 			for(int row=map.getGuardSpot().getY(); row>=1; row--) {
 				if(isUnobstructed(row-1,col)) {
-					map.moveGuard(row-1, col);
+					map.moveGuard(row-1, col, replaceWithX);
 				} else {
 					turn();
 					return -1;//stop walking because you ran into an obstruction
@@ -49,7 +49,7 @@ public class Day6 {
 			int row = map.getGuardSpot().getY();
 			for(int col=map.getGuardSpot().getX(); col<map.getArea().get(row).size()-1; col++) {
 				if(isUnobstructed(row,col+1)) {
-					map.moveGuard(row,col+1);
+					map.moveGuard(row,col+1, replaceWithX);
 				} else {
 					turn();
 					return -1;//stop walking because you ran into an obstruction
@@ -59,7 +59,7 @@ public class Day6 {
 			int col = map.getGuardSpot().getX();
 			for(int row=map.getGuardSpot().getY(); row<map.getArea().size()-1; row++) {
 				if(isUnobstructed(row+1,col)) {
-					map.moveGuard(row+1, col);
+					map.moveGuard(row+1, col, replaceWithX);
 				} else {
 					turn();
 					return -1;//stop walking because you ran into an obstruction
@@ -69,7 +69,7 @@ public class Day6 {
 			int row = map.getGuardSpot().getY();
 			for(int col=map.getGuardSpot().getX(); col>=1; col--) {
 				if(isUnobstructed(row,col-1)) {
-					map.moveGuard(row,col-1);
+					map.moveGuard(row,col-1, replaceWithX);
 				} else {
 					turn();
 					return -1;//stop walking because you ran into an obstruction
@@ -109,11 +109,14 @@ public class Day6 {
 		}
 	}
 	
-	public void walkUntilOut() {
+	public int walkUntilOut() {
+		int totalWalks = 0;
 		int result;
 		do {
-			result = walk();
+			result = walk(true);
+			totalWalks++;
 		} while (result!=0);
+		return totalWalks;
 	}
 	public Integer getDistinctGuardPlaces() {
 		int total = 0;
@@ -127,4 +130,41 @@ public class Day6 {
 		total++;//for the last place the guard is in.  We're leaving them in the map and not moving out of it so we can easily see where they exit.
 		return total;
 	}
+	
+	public int walkUntilOutOrPerformXwalks(int maxWalks) {
+		int totalWalks = 0;
+		int result;
+		do {
+			result = walk(false);
+			totalWalks++;
+		} while (result!=0 && totalWalks<maxWalks);
+		return totalWalks;
+	}
+	public Integer bruteForceHowManyObstructionsCauseInfiniteLoops() {
+		int row=0;
+		int col=0;
+		int totalNewObstructionOptions = 0;
+		do {
+			//if we can add an obstacle in the current spot, do it and see if it causes an infinite loop.
+			if(map.getArea().get(row).get(col)=='.') {
+				map.updateArea(row, col, '#');
+				if(walkUntilOutOrPerformXwalks(1000)==1000) {
+					totalNewObstructionOptions++; //we walked for 1k walks, this is probably infinite loop.
+				}
+				
+				//revert the map back
+				populateInput();
+			}
+			
+			
+			//go to the next location in the area.
+			col++;
+			if(col>=map.getArea().get(row).size()) {
+				col=0;
+				row++;
+			}
+		} while (row<map.getArea().size());
+		return totalNewObstructionOptions;
+	}
+	
 }

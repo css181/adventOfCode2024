@@ -24,6 +24,12 @@ public class Map {
 	public ArrayList<ArrayList<Character>> getArea() {
 		return area;
 	}
+	public void setArea(ArrayList<ArrayList<Character>> area) {
+		this.area = area;
+	}
+	public void updateArea(int row, int col, Character newChar) {
+		this.area.get(row).set(col, newChar);
+	}
 	public Coordinate getGuardSpot() {
 		return guardSpot;
 	}
@@ -65,11 +71,11 @@ public class Map {
     }
     
     
-	public void moveGuard(int row, int col) {
+	public void moveGuard(int row, int col, boolean replaceWithX) {
 		Character curGuardChar = area.get(guardSpot.getY()).get(guardSpot.getX());
 		//Re-assign the current spot to an X
 		ArrayList<Character> curGuardRow = area.get(guardSpot.getY());
-		curGuardRow.set(guardSpot.getX(), 'X');
+		if(replaceWithX) {curGuardRow.set(guardSpot.getX(), 'X'); }
 		
 		//Move the Guard spot
 		guardSpot = new Coordinate(col, row);

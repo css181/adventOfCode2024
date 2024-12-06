@@ -46,7 +46,7 @@ public class Day6Part1 {
 	
 	@Test
 	void guard_can_walk_up_leaving_Xs_in_his_wake() throws Exception {
-		day6.walk();
+		day6.walk(true);
 		String expectedMap = "";
 		expectedMap+=
 			"....#.....\n" +
@@ -85,8 +85,8 @@ public class Day6Part1 {
 	
 	@Test
 	void guard_can_walk_right_leaving_Xs_in_his_wake() throws Exception {
-		day6.walk();//up
-		day6.walk();//right
+		day6.walk(true);//up
+		day6.walk(true);//right
 		String expectedMap = "";
 		expectedMap+=
 			"....#.....\n" +
@@ -105,9 +105,9 @@ public class Day6Part1 {
 
 	@Test
 	void guard_can_walk_down_leaving_Xs_in_his_wake() throws Exception {
-		day6.walk();//up
-		day6.walk();//right
-		day6.walk();//down
+		day6.walk(true);//up
+		day6.walk(true);//right
+		day6.walk(true);//down
 		String expectedMap = "";
 		expectedMap+=
 			"....#.....\n" +
@@ -126,10 +126,10 @@ public class Day6Part1 {
 	
 	@Test
 	void guard_can_walk_left_leaving_Xs_in_his_wake() throws Exception {
-		day6.walk();//up
-		day6.walk();//right
-		day6.walk();//down
-		day6.walk();//left
+		day6.walk(true);//up
+		day6.walk(true);//right
+		day6.walk(true);//down
+		day6.walk(true);//left
 		String expectedMap = "";
 		expectedMap+=
 			"....#.....\n" +
