@@ -6,9 +6,10 @@ import java.util.List;
 
 public class Equation{
 
+	public enum OPS {MULT, PLUS, CONCAT};
 	private long equals;
 	private ArrayList<Long> opperands;
-	private ArrayList<Boolean> isMultOpperators;
+	private ArrayList<OPS> ops; //0=>* 1=>+ 2=>||
 	private boolean isValid;
 	
 	public Equation(String inputLine) {
@@ -21,10 +22,10 @@ public class Equation{
 			opperands.add(Long.valueOf(elem));
 		}
 	    
-		isMultOpperators = new ArrayList<Boolean>();
+		ops = new ArrayList<OPS>();
 		//Start by checking all *, then use recursion in determineIsValid() to update the array of opperators
 		for(int x=0; x<opperands.size()-1; x++) {
-			isMultOpperators.add(true);
+			ops.add(OPS.MULT);
 		}
 		
 	    this.isValid = determineIsValid();
@@ -42,11 +43,11 @@ public class Equation{
 	protected void setOpperands(ArrayList<Long> opperands) {
 		this.opperands = opperands;
 	}
-	public ArrayList<Boolean> getIsMultOpperators() {
-		return isMultOpperators;
+	public ArrayList<OPS> getIsMultOpperators() {
+		return ops;
 	}
-	public void setIsMultOpperators(ArrayList<Boolean> isMultOpperators) {
-		this.isMultOpperators = isMultOpperators;
+	public void setIsMultOpperators(ArrayList<OPS> ops) {
+		this.ops = ops;
 	}
 	public boolean isValid() {
 		return isValid;
@@ -82,13 +83,13 @@ public class Equation{
 
 	private boolean determineIsValid() {
 		long total = 0;
-		if(isMultOpperators.get(0)) {
+		if(ops.get(0)==OPS.MULT) {
 			total = opperands.get(0) * opperands.get(1);
 		} else {
 			total = opperands.get(0) + opperands.get(1);
 		}
 		for(int opperandsIndex=2; opperandsIndex<opperands.size(); opperandsIndex++) {
-			if(isMultOpperators.get(opperandsIndex-1)) {
+			if(ops.get(opperandsIndex-1)==OPS.MULT) {
 				total*=opperands.get(opperandsIndex);
 			} else {
 				total+=opperands.get(opperandsIndex);
@@ -109,15 +110,15 @@ public class Equation{
 
 	private void updateIsMultListToNextPlus() {
 		int rightMostMultIndex = rightMostMult();
-		isMultOpperators.set(rightMostMultIndex, false);
-		for(int x=rightMostMultIndex+1; x<isMultOpperators.size(); x++) {
-			isMultOpperators.set(x, true);
+		ops.set(rightMostMultIndex, OPS.PLUS);
+		for(int x=rightMostMultIndex+1; x<ops.size(); x++) {
+			ops.set(x, OPS.MULT);
 		}
 	}
 
 	private int rightMostMult() {
-		for(int x=isMultOpperators.size()-1; x>=0; x--) {
-			if(isMultOpperators.get(x)) {
+		for(int x=ops.size()-1; x>=0; x--) {
+			if(ops.get(x)==OPS.MULT) {
 				return x;
 			}
 		}
@@ -125,8 +126,8 @@ public class Equation{
 	}
 
 	private boolean alreadyOnAllPlus() {
-		for (Boolean isMult : isMultOpperators) {
-			if(isMult) {
+		for (OPS op : ops) {
+			if(op==OPS.MULT) {
 				return false;
 			}
 		}

@@ -10,6 +10,8 @@ import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import day7.Equation.OPS;
+
 public class Day7Part1 {
 
 	private Day7 day7;
@@ -40,19 +42,19 @@ public class Day7Part1 {
 	@Test
 	void verify_first_equasion_is_valid_by_multiplying() throws Exception {
 		assertEquals(true, day7.getEquasions().get(0).isValid());
-		assertEquals(Arrays.asList(true), day7.getEquasions().get(0).getIsMultOpperators());
+		assertEquals(Arrays.asList(OPS.MULT), day7.getEquasions().get(0).getIsMultOpperators());
 	}
 
 	@Test
 	void verify_second_equasion_is_valid_by_multiplying_then_adding_or_adding_then_multiplying() throws Exception {
 		assertEquals(true, day7.getEquasions().get(1).isValid());
-		assertEquals(Arrays.asList(true, false), day7.getEquasions().get(1).getIsMultOpperators()); //Could also be (false,true)
+		assertEquals(Arrays.asList(OPS.MULT, OPS.PLUS), day7.getEquasions().get(1).getIsMultOpperators()); //Could also be (false,true)
 	}
 
 	@Test
 	void verify_last_equasion_is_valid_by_plus_times_plus() throws Exception {
 		assertEquals(true, day7.getEquasions().get(8).isValid());
-		assertEquals(Arrays.asList(false, true, false), day7.getEquasions().get(8).getIsMultOpperators()); //Could also be (false,true)
+		assertEquals(Arrays.asList(OPS.PLUS, OPS.MULT, OPS.PLUS), day7.getEquasions().get(8).getIsMultOpperators()); //Could also be (false,true)
 	}
 	
 	@Test
