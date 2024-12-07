@@ -11,8 +11,9 @@ public class Equation{
 	private ArrayList<Long> opperands;
 	private ArrayList<OPS> ops;
 	private boolean isValid;
+	private int opsIndex;
 	
-	public Equation(String inputLine) {
+	public Equation(String inputLine, boolean allowConcat) {
 		this.equals = Long.valueOf(inputLine.substring(0, inputLine.indexOf(':')));
 		String str[] = inputLine.substring(inputLine.indexOf(':')+2).split(" ");
 	    List<String> stringList = new ArrayList<String>();
@@ -28,7 +29,60 @@ public class Equation{
 			ops.add(OPS.MULT);
 		}
 		
-	    this.isValid = determineIsValid();
+//	    this.isValid = determineIsValid();
+		opsIndex = opperands.size()-2;
+		this.isValid = isValidRecursive(opperands, allowConcat);
+	}
+
+	private boolean isValidRecursive(ArrayList<Long> curOpperandsLeft, boolean allowConcat) {
+		if(curOpperandsLeft.size()==1) {
+			if(curOpperandsLeft.get(0)==equals) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		ArrayList<Long> remaining = new ArrayList<Long>();
+		long plusTotal = curOpperandsLeft.get(0) + curOpperandsLeft.get(1);
+		remaining.add(plusTotal);
+		for(int x=2; x<curOpperandsLeft.size(); x++) {
+			remaining.add(curOpperandsLeft.get(x));
+		}
+		boolean plusTry = isValidRecursive(remaining, allowConcat);
+		remaining = new ArrayList<Long>();
+		long multTotal = curOpperandsLeft.get(0) * curOpperandsLeft.get(1);
+		remaining.add(multTotal);
+		for(int x=2; x<curOpperandsLeft.size(); x++) {
+			remaining.add(curOpperandsLeft.get(x));
+		}
+		boolean multTry = isValidRecursive(remaining, allowConcat);
+		
+		if(allowConcat) {			
+			remaining = new ArrayList<Long>();
+			long concatTotal = Long.valueOf(String.valueOf(curOpperandsLeft.get(0)) + String.valueOf(curOpperandsLeft.get(1)));
+			remaining.add(concatTotal);
+			for(int x=2; x<curOpperandsLeft.size(); x++) {
+				remaining.add(curOpperandsLeft.get(x));
+			}
+			boolean concatTry = isValidRecursive(remaining, allowConcat);
+			if (concatTry) {
+				if(opsIndex>=0)
+					ops.set(opsIndex--, OPS.CONCAT);
+				return true;
+			}
+		}
+		
+		if(plusTry) {
+			if(opsIndex>=0)
+				ops.set(opsIndex--, OPS.PLUS);
+			return true;
+		} else if (multTry) {
+			if(opsIndex>=0)
+				ops.set(opsIndex--, OPS.MULT);
+			return true;
+		}
+		
+		return false;
 	}
 
 	protected long getEquals() {
@@ -81,6 +135,7 @@ public class Equation{
     }
 
 
+    //Brute Force method.  This works, but is very slow for 5+ opperands and at least 3 ops.
 	private boolean determineIsValid() {
 		long total = 0;
 		if(ops.get(0)==OPS.MULT) {

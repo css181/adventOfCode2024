@@ -17,7 +17,7 @@ public class Day7Part2 {
 	
 	@BeforeEach
 	public void setup() {
-		day7 = new Day7(new File(getClass().getResource("SampleInput.txt").getPath()));
+		day7 = new Day7(new File(getClass().getResource("SampleInput.txt").getPath()), true);
 	}
 
 	@Test
@@ -45,7 +45,8 @@ public class Day7Part2 {
 	
 	@Test
 	void part2_answer() throws Exception {
-		day7 = new Day7();
-		System.out.println(day7.getSumOfAllEqualsOfValidEquasions());
+		day7 = new Day7(true);
+//		System.out.println(day7.getSumOfAllEqualsOfValidEquasions());
+		assertEquals(333027885676693l, day7.getSumOfAllEqualsOfValidEquasions());
 	}
 }

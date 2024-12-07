@@ -12,25 +12,25 @@ public class Day7 {
 	protected ArrayList<Equation> equasions = new ArrayList<Equation>();
 	protected ArrayList<Long> rightList = new ArrayList<Long>();
 
-	public Day7() {
+	public Day7(boolean allowConcat) {
 		URL fileName = getClass().getResource("Input.txt");
 		file = new File(fileName.getPath());
-		populateInput();
+		populateInput(allowConcat);
 	}
-	public Day7(File file) {
+	public Day7(File file, boolean allowConcat) {
 		equasions = new ArrayList<Equation>();
 		setFileToUse(file);
-		populateInput();
+		populateInput(allowConcat);
 	}
 
 	protected void setFileToUse(File file) {
 		Day7.file = file;
 	}
 
-	public void populateInput() {
+	public void populateInput(boolean allowConcat) {
 		ArrayList<String> inputLines = FileUtility.convertFileToStringArray(file);
 		for (String line : inputLines) {
-			equasions.add(new Equation(line));
+			equasions.add(new Equation(line, allowConcat));
 		}
 	}
 	public ArrayList<Equation> getEquasions() {

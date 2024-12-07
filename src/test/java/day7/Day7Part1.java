@@ -18,21 +18,21 @@ public class Day7Part1 {
 	
 	@BeforeEach
 	public void setup() {
-		day7 = new Day7(new File(getClass().getResource("SampleInput.txt").getPath()));
+		day7 = new Day7(new File(getClass().getResource("SampleInput.txt").getPath()), false);
 	}
 	
 	@Test 
 	void verify_Input() {
 		ArrayList<Equation> expectedEquasions = new ArrayList<Equation>();
-		expectedEquasions.add(new Equation("190: 10 19"));
-		expectedEquasions.add(new Equation("3267: 81 40 27"));
-		expectedEquasions.add(new Equation("83: 17 5"));
-		expectedEquasions.add(new Equation("156: 15 6"));
-		expectedEquasions.add(new Equation("7290: 6 8 6 15"));
-		expectedEquasions.add(new Equation("161011: 16 10 13"));
-		expectedEquasions.add(new Equation("192: 17 8 14"));
-		expectedEquasions.add(new Equation("21037: 9 7 18 13"));
-		expectedEquasions.add(new Equation("292: 11 6 16 20"));
+		expectedEquasions.add(new Equation("190: 10 19", false));
+		expectedEquasions.add(new Equation("3267: 81 40 27", false));
+		expectedEquasions.add(new Equation("83: 17 5", false));
+		expectedEquasions.add(new Equation("156: 15 6", false));
+		expectedEquasions.add(new Equation("7290: 6 8 6 15", false));
+		expectedEquasions.add(new Equation("161011: 16 10 13", false));
+		expectedEquasions.add(new Equation("192: 17 8 14", false));
+		expectedEquasions.add(new Equation("21037: 9 7 18 13", false));
+		expectedEquasions.add(new Equation("292: 11 6 16 20", false));
 		
 		assertEquals(expectedEquasions, day7.getEquasions());
 		assertEquals(190, day7.getEquasions().get(0).getEquals());
@@ -48,7 +48,7 @@ public class Day7Part1 {
 	@Test
 	void verify_second_equasion_is_valid_by_multiplying_then_adding_or_adding_then_multiplying() throws Exception {
 		assertEquals(true, day7.getEquasions().get(1).isValid());
-		assertEquals(Arrays.asList(OPS.MULT, OPS.PLUS), day7.getEquasions().get(1).getIsMultOpperators()); //Could also be (false,true)
+		assertEquals(Arrays.asList(OPS.PLUS, OPS.MULT), day7.getEquasions().get(1).getIsMultOpperators()); //Could also be Mult, Plus
 	}
 
 	@Test
@@ -74,7 +74,7 @@ public class Day7Part1 {
 	
 	@Test
 	void part1_answer() throws Exception {
-		day7 = new Day7();
+		day7 = new Day7(false);
 //		System.out.println(day7.getSumOfAllEqualsOfValidEquasions());
 		assertEquals(6231007345478l, day7.getSumOfAllEqualsOfValidEquasions());
 	}
