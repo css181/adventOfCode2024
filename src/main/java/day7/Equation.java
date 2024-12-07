@@ -9,7 +9,7 @@ public class Equation{
 	public enum OPS {MULT, PLUS, CONCAT};
 	private long equals;
 	private ArrayList<Long> opperands;
-	private ArrayList<OPS> ops; //0=>* 1=>+ 2=>||
+	private ArrayList<OPS> ops;
 	private boolean isValid;
 	
 	public Equation(String inputLine) {
@@ -85,14 +85,20 @@ public class Equation{
 		long total = 0;
 		if(ops.get(0)==OPS.MULT) {
 			total = opperands.get(0) * opperands.get(1);
-		} else {
+		} else if(ops.get(0)==OPS.PLUS){
 			total = opperands.get(0) + opperands.get(1);
+		} else {
+			String concat = String.valueOf(opperands.get(0)) + String.valueOf(opperands.get(1));
+			total = Long.valueOf(concat);
 		}
 		for(int opperandsIndex=2; opperandsIndex<opperands.size(); opperandsIndex++) {
 			if(ops.get(opperandsIndex-1)==OPS.MULT) {
 				total*=opperands.get(opperandsIndex);
-			} else {
+			} else if(ops.get(opperandsIndex-1)==OPS.PLUS) {
 				total+=opperands.get(opperandsIndex);
+			} else {
+				String concat = String.valueOf(total) + String.valueOf(opperands.get(opperandsIndex));
+				total = Long.valueOf(concat);
 			}
 		}
 		if(total==equals) {
@@ -104,30 +110,31 @@ public class Equation{
 		}
 		
 		//update current to plus if on *, if on + make it * and make next one +
-		updateIsMultListToNextPlus();
+		updateOpsToNextOpToTry();
 		return determineIsValid();
 	}
 
-	private void updateIsMultListToNextPlus() {
-		int rightMostMultIndex = rightMostMult();
-		ops.set(rightMostMultIndex, OPS.PLUS);
-		for(int x=rightMostMultIndex+1; x<ops.size(); x++) {
-			ops.set(x, OPS.MULT);
-		}
-	}
-
-	private int rightMostMult() {
+	private void updateOpsToNextOpToTry() {
 		for(int x=ops.size()-1; x>=0; x--) {
 			if(ops.get(x)==OPS.MULT) {
-				return x;
+				ops.set(x, OPS.CONCAT);
+				for(int y=x+1; y<ops.size(); y++) {
+					ops.set(y, OPS.MULT);
+				}
+				return;
+			} else if(ops.get(x)==OPS.CONCAT) {
+				ops.set(x, OPS.PLUS);
+				for(int y=x+1; y<ops.size(); y++) {
+					ops.set(y, OPS.MULT);
+				}
+				return;
 			}
 		}
-		return -1;
 	}
 
 	private boolean alreadyOnAllPlus() {
 		for (OPS op : ops) {
-			if(op==OPS.MULT) {
+			if(op==OPS.MULT || op==OPS.CONCAT) {
 				return false;
 			}
 		}
