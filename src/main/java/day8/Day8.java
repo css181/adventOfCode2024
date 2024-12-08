@@ -93,6 +93,95 @@ public class Day8 {
 		}
 	}
 	
+	public void fillAntinodesListForAllMultipleDistancesWithinMap() {
+		for (Character frequency : map.getUniqueFrequencies()) {
+			ArrayList<Coordinate> allSpotsWithCurFrequency = getAllSpotsWithFrequency(frequency);
+			for (Coordinate spotWithCurFrequency : allSpotsWithCurFrequency) {
+				for(int spotIndex=0; spotIndex<allSpotsWithCurFrequency.size(); spotIndex++) {
+					if(spotWithCurFrequency.equals(allSpotsWithCurFrequency.get(spotIndex))) {
+						break; //we can't compare a spot with itself.
+					}
+					addAllAntinodesForSpotsWithinMap(spotWithCurFrequency, allSpotsWithCurFrequency.get(spotIndex), frequency);
+				}
+			}
+		}
+	}
+	private void addAllAntinodesForSpotsWithinMap(Coordinate coordA, Coordinate coordB, Character frequency) {
+		//By default, the antennas themselves are 1 difference away from another antenna, so add them too.
+		antinodes.add(new Antinode(coordA, frequency));
+		antinodes.add(new Antinode(coordB, frequency));
+		Coordinate difference = coordA.getDistanceFrom(coordB);
+		Coordinate smallerAntinode;
+		Coordinate largerAntinode;
+		if(coordA.getX() > coordB.getX()) {
+			//aX>bX
+			if(coordA.getY() > coordB.getY()) {
+				//aX>bX & aY>bY
+				smallerAntinode = new Coordinate(coordB.getX() - difference.getX(), coordB.getY() - difference.getY());
+				while (smallerAntinode.getX()>=0 && smallerAntinode.getY()>=0) {
+					antinodes.add(new Antinode(smallerAntinode, frequency));
+					
+					smallerAntinode = new Coordinate(smallerAntinode.getX() - difference.getX(), smallerAntinode.getY() - difference.getY());
+				}
+				
+				largerAntinode = new Coordinate(coordA.getX() + difference.getX(), coordA.getY() + difference.getY());
+				while (largerAntinode.getX()<map.getArea().get(0).size() && largerAntinode.getY()<map.getArea().size()) {
+					antinodes.add(new Antinode(largerAntinode, frequency));
+					
+					largerAntinode = new Coordinate(largerAntinode.getX() + difference.getX(), largerAntinode.getY() + difference.getY());
+				}
+			} else {
+				//aX>bX & aY<bY
+				smallerAntinode = new Coordinate(coordB.getX() - difference.getX(), coordB.getY() + difference.getY());
+				while (smallerAntinode.getX()>=0 && smallerAntinode.getY()<map.getArea().size()) {
+					antinodes.add(new Antinode(smallerAntinode, frequency));
+					
+					smallerAntinode = new Coordinate(smallerAntinode.getX() - difference.getX(), smallerAntinode.getY() + difference.getY());
+				}
+				
+				largerAntinode = new Coordinate(coordA.getX() + difference.getX(), coordA.getY() - difference.getY());
+				while (largerAntinode.getX()<map.getArea().get(0).size() && largerAntinode.getY()>=0) {
+					antinodes.add(new Antinode(largerAntinode, frequency));
+					
+					largerAntinode = new Coordinate(largerAntinode.getX() + difference.getX(), largerAntinode.getY() - difference.getY());
+				}
+			}
+		} else {
+			//aX<bX
+			if(coordA.getY() > coordB.getY()) {
+				//aX<bX & aY>bY
+				smallerAntinode = new Coordinate(coordB.getX() + difference.getX(), coordB.getY() - difference.getY());
+				while (smallerAntinode.getX()<map.getArea().get(0).size() && smallerAntinode.getY()>=0) {
+					antinodes.add(new Antinode(smallerAntinode, frequency));
+					
+					smallerAntinode = new Coordinate(smallerAntinode.getX() + difference.getX(), smallerAntinode.getY() - difference.getY());
+				}
+				
+				largerAntinode = new Coordinate(coordA.getX() - difference.getX(), coordA.getY() + difference.getY());
+				while (largerAntinode.getX()>=0 && largerAntinode.getY()<map.getArea().size()) {
+					antinodes.add(new Antinode(largerAntinode, frequency));
+					
+					largerAntinode = new Coordinate(largerAntinode.getX() - difference.getX(), largerAntinode.getY() + difference.getY());
+				}
+			} else {
+				//aX<bX & aY<bY
+				smallerAntinode = new Coordinate(coordB.getX() + difference.getX(), coordB.getY() + difference.getY());
+				while (smallerAntinode.getX()<map.getArea().get(0).size() && smallerAntinode.getY()<map.getArea().size()) {
+					antinodes.add(new Antinode(smallerAntinode, frequency));
+					
+					smallerAntinode = new Coordinate(smallerAntinode.getX() + difference.getX(), smallerAntinode.getY() + difference.getY());
+				}
+				
+				largerAntinode = new Coordinate(coordA.getX() - difference.getX(), coordA.getY() - difference.getY());
+				while (largerAntinode.getX()>=0 && largerAntinode.getY()>=0) {
+					antinodes.add(new Antinode(largerAntinode, frequency));
+					
+					largerAntinode = new Coordinate(largerAntinode.getX() - difference.getX(), largerAntinode.getY() - difference.getY());
+				}
+			}
+		}
+	}
+	
 	private boolean isWithinMap(Coordinate coordinate) {
 		return (coordinate.getX() >= 0) && (coordinate.getX() < map.getArea().get(0).size()) && //All rows are same size, so we can cheat and use 0 row for all.
 				(coordinate.getY() >= 0) && (coordinate.getY() < map.getArea().size());
@@ -112,4 +201,22 @@ public class Day8 {
 			antinodes.remove(toRemove);
 		}
 	}
+	public String printAntinodesInMap() {
+		String print = "";
+		
+		for(int row=0; row<map.getArea().size(); row++) {
+			for(int col=0; col<map.getArea().get(row).size(); col++) {
+				if(antinodes.contains(new Antinode(new Coordinate(col, row), '0')) || 
+						antinodes.contains(new Antinode(new Coordinate(col, row), 'A'))) {
+					print+='#';
+				} else {
+					print+=".";
+				}
+			}
+			print+="\n";
+		}
+		
+		return print;
+	}
+
 }

@@ -17,16 +17,19 @@ public class Day8Part2 {
 	}
 	
 	@Test 
-	void can_calculate_num_of_times_X_is_in_rightList() {
-//		assertEquals(3, dayX.numOfTimesNumIsInRightList(3));
-//		assertEquals(1, dayX.numOfTimesNumIsInRightList(4));
-//		assertEquals(0, dayX.numOfTimesNumIsInRightList(2));
-//		assertEquals(0, dayX.numOfTimesNumIsInRightList(1));
+	void after_adding_antinodes_for_every_multiple_of_distance_of_antennas_sample_has_34() {
+		day8.fillAntinodesListForAllMultipleDistancesWithinMap();
+		day8.deDupeAntinodesList();
+//		System.out.println(day8.printAntinodesInMap());
+		assertEquals(34, day8.antinodes.size());
 	}
 	
 	@Test
 	void part2_answer() throws Exception {
 		day8 = new Day8();
-//		System.out.println(dayX.getAnswer());
+		day8.fillAntinodesListForAllMultipleDistancesWithinMap();
+		day8.deDupeAntinodesList();
+//		System.out.println(day8.antinodes.size());
+		assertEquals(1174, day8.antinodes.size());
 	}
 }
