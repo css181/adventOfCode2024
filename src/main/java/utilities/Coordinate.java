@@ -40,4 +40,8 @@ public class Coordinate {
         
         return true;
     }
+    
+	public Coordinate getDistanceFrom(Coordinate coordB) {
+		return new Coordinate(Math.abs(x-coordB.x), Math.abs(y-coordB.y));
+	}
 }
