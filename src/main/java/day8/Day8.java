@@ -10,7 +10,7 @@ import utilities.FileUtility;
 public class Day8 {
 
 	private static File file;
-	protected Map map;
+	protected FrequencyMap map;
 	protected ArrayList<Antinode> antinodes;
 	
 	public Day8() {
@@ -30,7 +30,7 @@ public class Day8 {
 	}
 
 	public void populateInput() {
-		map = new Map(FileUtility.convertFileToCharacterArray(file));
+		map = new FrequencyMap(FileUtility.convertFileToCharacterArray(file));
 	}
 	
 	public void fillAntinodesList() {

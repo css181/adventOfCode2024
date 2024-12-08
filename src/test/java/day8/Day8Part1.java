@@ -1,7 +1,8 @@
 package day8;
 
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import utilities.Coordinate;
+import utilities.Map;
 
 public class Day8Part1 {
 
@@ -36,7 +38,7 @@ public class Day8Part1 {
 		expectedArea.add(new ArrayList<Character> (Arrays.asList('.','.','.','.','.','.','.','.','.','A','.','.')));
 		expectedArea.add(new ArrayList<Character> (Arrays.asList('.','.','.','.','.','.','.','.','.','.','.','.')));
 		expectedArea.add(new ArrayList<Character> (Arrays.asList('.','.','.','.','.','.','.','.','.','.','.','.')));
-		Map expectedMap = new Map(expectedArea);
+		FrequencyMap expectedMap = new FrequencyMap(expectedArea);
 		
 		assertEquals(expectedMap, day8.map);
 	}
@@ -110,5 +112,25 @@ public class Day8Part1 {
 		day8.deDupeAntinodesList();
 //		System.out.println(day8.antinodes.size());
 		assertEquals(332, day8.antinodes.size());
+	}
+	
+	@Test
+	void map_in_utils_can_create_a_new_map_area_by_strings() throws Exception {
+		String inputLines = "" + 
+				"............\n" +
+				"........0...\n" +
+				".....0......\n" +
+				".......0....\n" +
+				"....0.......\n" +
+				"......A.....\n" +
+				"............\n" +
+				"............\n" +
+				"........A...\n" +
+				".........A..\n" +
+				"............\n" +
+				"............";
+		Map map = new utilities.Map(inputLines, "\n");
+		
+		assertEquals(inputLines+"\n", map.toString());
 	}
 }
