@@ -29,7 +29,7 @@ public class Block {
 
 	@Override
 	public String toString() {
-		return "values: " + values + ", freeSlots:  " + freeSlots;
+		return "{values: " + values + ", freeSlots:  " + freeSlots + "}";
 	}
 
     @Override

@@ -3,7 +3,6 @@ package day9;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
 
 import utilities.FileUtility;
 
@@ -104,6 +103,46 @@ public class Day9 {
 	public Long getChecksumOfSortedBlocks() {
 		long total = 0;
 		ArrayList<Integer> sortBlocks = sortBlocks();
+		for (int x=0; x<sortBlocks.size(); x++) {
+			total+= x * sortBlocks.get(x);
+		}
+		
+		return total;
+	}
+	
+	
+	public ArrayList<Integer> sortBlocksKeepingFilesTogether() {
+		ArrayList<Integer> sortedBlocks = new ArrayList<Integer>();
+		for (int curBlockIndex=blockList.size()-1; curBlockIndex>0; curBlockIndex--) {
+			Block curBlock = blockList.get(curBlockIndex);
+			if(curBlock.getValues().size()>0) {				
+				for (int tryIndex=0; tryIndex<curBlockIndex; tryIndex++) {
+					Block tryMoveToBlock = blockList.get(tryIndex);
+					if(tryMoveToBlock.getFreeSlots()>= curBlock.getValues().size()) {
+						//it fits, so move it there
+						tryMoveToBlock.getValues().addAll(curBlock.getValues());
+						tryMoveToBlock.getSetFreeSlots(tryMoveToBlock.getFreeSlots() - curBlock.getValues().size());
+						curBlock.getSetFreeSlots(Integer.valueOf(curBlock.getValues().size()));
+						curBlock.setValues(new ArrayList<Integer>());
+						break;
+					}
+				}
+			}
+		}
+		
+		for (Block block : blockList) {
+			sortedBlocks.addAll(block.getValues());
+			if(block.getFreeSlots()>0) {
+				for(int x=0; x<block.getFreeSlots(); x++) {
+					sortedBlocks.add(0);
+				}
+			}
+		}
+		return sortedBlocks;
+	}
+	public Long getChecksumOfSortedBlocksByFullFiles() {
+		long total = 0;
+		ArrayList<Integer> sortBlocks = sortBlocksKeepingFilesTogether();
 		for (int x=0; x<sortBlocks.size(); x++) {
 			total+= x * sortBlocks.get(x);
 		}

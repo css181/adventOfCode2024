@@ -10,7 +10,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class DayXPart1 {
+public class Day9Part1 {
 
 	private Day9 day9;
 	
