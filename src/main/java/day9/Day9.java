@@ -3,23 +3,30 @@ package day9;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import utilities.FileUtility;
 
 public class Day9 {
 
 	private static File file;
-	private String unsortedBlocks = "";
+	private ArrayList<Block> blockList = new ArrayList<Block>();
+	int blockIndex;
+	int arrayIndexInBlock;
 
 	public Day9() {
 		URL fileName = getClass().getResource("Input.txt");
 		file = new File(fileName.getPath());
 		populateInput();
+		blockIndex = blockList.size()-1;
+		arrayIndexInBlock = blockList.get(blockIndex).getValues().size()-1;
 	}
 	public Day9(File file) {
-		unsortedBlocks = "";
+		blockList = new ArrayList<Block>();
 		setFileToUse(file);
 		populateInput();
+		blockIndex = blockList.size()-1;
+		arrayIndexInBlock = blockList.get(blockIndex).getValues().size()-1;
 	}
 
 	protected void setFileToUse(File file) {
@@ -33,55 +40,75 @@ public class Day9 {
 			inputNums.add(Integer.valueOf(String.valueOf(number)));
 		}
 		int id=0;
+		Block curBlock;
 		for (int index=0; index<inputNums.size(); index++) {
 			int num = inputNums.get(index);
 			if(index%2==0) {
+				ArrayList<Integer> blockNums = new ArrayList<Integer>();
 				for(int x=0; x<num; x++) {
-					unsortedBlocks+=String.valueOf(id);
+					blockNums.add(id);
 				}
+				curBlock = new Block(blockNums, 0);
 				id++;
 			} else {
-				for(int x=0; x<num; x++) {
-					unsortedBlocks+=".";
-				}
+				ArrayList<Integer> blockNums = new ArrayList<Integer>();
+				curBlock = new Block(blockNums, num);
 			}
+			blockList.add(curBlock);
 		}
 	}
 	
-	public String getUnsortedBlocks() {
-		return unsortedBlocks;
+	public ArrayList<Block> getBlockList() {
+		return blockList;
 	}
 	
-	public String sortBlocks() {
-		String sorted = unsortedBlocks;
-		char[] charList = unsortedBlocks.toCharArray();
-		int replacedIndex = 0;
-		for(int index=charList.length-1; index>replacedIndex; index--) {
-			char curChar = charList[index];
-			replacedIndex = sorted.indexOf('.');
-			if(curChar!='.' && replacedIndex<index) {
-				sorted = sorted.replaceFirst("\\.", String.valueOf(curChar));
-				char[] newCharArray = sorted.toCharArray();
-				newCharArray[index] = '.';
-				sorted = String.valueOf(newCharArray);
+	public ArrayList<Integer> sortBlocks() {
+		ArrayList<Integer> sortedBlocks = new ArrayList<Integer>();
+		for (int curBlockIndex=0; curBlockIndex<blockList.size(); curBlockIndex++) {
+			Block block = blockList.get(curBlockIndex);
+			if(curBlockIndex>=blockIndex) {
+				//we got to the block we're pulling from, so just add whatever is remaining and stop
+				sortedBlocks.addAll(block.getValues());
+				break;
 			}
+			if(block.getFreeSlots()==0) {
+				sortedBlocks.addAll(block.getValues());
+			}
+			else {
+				sortedBlocks.addAll(getNext_x_Numbers_from_back_of_BlockList(block.getFreeSlots()));
+			}
+			
 		}
-		return sorted;
+		return sortedBlocks;
+	}
+	
+	private ArrayList<Integer> getNext_x_Numbers_from_back_of_BlockList(int slotsNeeded) {
+		ArrayList<Integer> newInts = new ArrayList<Integer>();
+		
+		do {
+			Block curBlock = blockList.get(blockIndex);
+			while(arrayIndexInBlock<0) {
+				blockIndex--;
+				curBlock = blockList.get(blockIndex);
+				arrayIndexInBlock = curBlock.getValues().size()-1;
+			}
+			newInts.add(curBlock.getValues().get(arrayIndexInBlock));
+			//remove it from the blockList to "free" up the space from that block, and decrement index
+			curBlock.getValues().remove(arrayIndexInBlock--);
+			curBlock.getSetFreeSlots(curBlock.getFreeSlots()+1);
+		} while (newInts.size()<slotsNeeded);
+		
+		return newInts;
 	}
 	
 	public Long getChecksumOfSortedBlocks() {
 		long total = 0;
-		String sorted = sortBlocks();
-		System.out.println("Sorted:");
-		char[] charList = sorted.toCharArray();
-		for(long x=0; x<charList.length; x++) {
-			if(charList[(int) x]=='.') {
-				break;//we got to end of the sorted list of numbers
-			}
-			System.out.println("total: " + total);
-			System.out.println("adding: " + x + " * " + Long.valueOf(String.valueOf(charList[(int) x])));
-			total+= x * Long.valueOf(String.valueOf(charList[(int) x]));
+		ArrayList<Integer> sortBlocks = sortBlocks();
+		for (int x=0; x<sortBlocks.size(); x++) {
+			total+= x * sortBlocks.get(x);
 		}
+		
 		return total;
 	}
+	
 }
