@@ -36,6 +36,6 @@ public class Day3Part2 {
 	@Test
 	void part2_answer() throws Exception {
 		day3 = new Day3();
-		System.out.println(day3.getSumOfAllMulInstructions(day3.getDoDontMulInstructions()));
+//		System.out.println(day3.getSumOfAllMulInstructions(day3.getDoDontMulInstructions()));
 	}
 }

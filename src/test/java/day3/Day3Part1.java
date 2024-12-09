@@ -38,6 +38,6 @@ public class Day3Part1 {
 	@Test
 	void part1_answer() throws Exception {
 		day3 = new Day3();
-		System.out.println(day3.getSumOfAllMulInstructions(day3.getValidMulInstructions()));
+//		System.out.println(day3.getSumOfAllMulInstructions(day3.getValidMulInstructions()));
 	}
 }

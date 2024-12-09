@@ -33,6 +33,6 @@ public class Day1Part2 {
 	@Test
 	void part2_answer() throws Exception {
 		day1 = new Day1();
-		System.out.println(day1.getTotalSimilarityScore());
+//		System.out.println(day1.getTotalSimilarityScore());
 	}
 }

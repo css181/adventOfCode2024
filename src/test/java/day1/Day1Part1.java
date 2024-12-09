@@ -97,6 +97,6 @@ public class Day1Part1 {
 	@Test
 	void part1_answer() throws Exception {
 		day1 = new Day1();
-		System.out.println(day1.totalDistanceBetweenBothFullLists());
+//		System.out.println(day1.totalDistanceBetweenBothFullLists());
 	}
 }

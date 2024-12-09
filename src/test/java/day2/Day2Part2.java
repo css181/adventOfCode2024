@@ -25,6 +25,6 @@ public class Day2Part2 {
 	@Test
 	void part2_answer() throws Exception {
 		day2 = new Day2();
-		System.out.println(day2.totalSafeWithDampenerReports());
+//		System.out.println(day2.totalSafeWithDampenerReports());
 	}
 }

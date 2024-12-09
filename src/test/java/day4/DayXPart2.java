@@ -25,6 +25,6 @@ public class DayXPart2 {
 	@Test
 	void part2_answer() throws Exception {
 		day4 = new Day4();
-		System.out.println(day4.getTotalMAS_X_Finds());
+//		System.out.println(day4.getTotalMAS_X_Finds());
 	}
 }

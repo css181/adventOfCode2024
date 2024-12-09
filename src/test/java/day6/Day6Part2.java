@@ -40,6 +40,7 @@ public class Day6Part2 {
 	@Test
 	void part2_answer() throws Exception {
 		day6 = new Day6();
-		System.out.println(day6.bruteForceHowManyObstructionsCauseInfiniteLoops());
+//		System.out.println(day6.bruteForceHowManyObstructionsCauseInfiniteLoops());
+		assertEquals(1946, day6.bruteForceHowManyObstructionsCauseInfiniteLoops());
 	}
 }
