@@ -86,4 +86,45 @@ public class Day10 {
 		}
 		return sum;
 	}
+	
+	
+	
+	public ArrayList<Integer> calculateTrailheadScoresAllowingMultiplePaths() {
+		ArrayList<Integer> scores = new ArrayList<Integer>();
+		for (Coordinate trailhead : trailheads) {
+			scores.add( 
+					isValidTrailToA9AllowingMultiplePaths(0, trailhead.getY()-1, trailhead.getX()) +
+					isValidTrailToA9AllowingMultiplePaths(0, trailhead.getY()+1, trailhead.getX()) +
+					isValidTrailToA9AllowingMultiplePaths(0, trailhead.getY(), trailhead.getX()-1) +
+					isValidTrailToA9AllowingMultiplePaths(0, trailhead.getY(), trailhead.getX()+1)
+			);
+		}
+		return scores;
+	}
+	private int isValidTrailToA9AllowingMultiplePaths(int priorHeight, int row, int col) {
+		if(row<0 || row>=topograph.size()) {
+			return 0;
+		}
+		if(col<0 || col>=topograph.get(row).size()) {
+			return 0;
+		}
+		int curHeight = topograph.get(row).get(col);
+		if(curHeight != priorHeight+1) {
+			return 0;
+		}
+		if(curHeight == 9) {
+			return 1;
+		}
+		return 	isValidTrailToA9AllowingMultiplePaths(curHeight, row-1, col) +
+				isValidTrailToA9AllowingMultiplePaths(curHeight, row+1, col) +
+				isValidTrailToA9AllowingMultiplePaths(curHeight, row, col-1) +
+				isValidTrailToA9AllowingMultiplePaths(curHeight, row, col+1);
+	}
+	public Integer getSumOfAllTrailheadScoresAllowingMultiplePaths() {
+		int sum = 0;
+		for (int score : calculateTrailheadScoresAllowingMultiplePaths()) {
+			sum+=score;
+		}
+		return sum;
+	}
 }
