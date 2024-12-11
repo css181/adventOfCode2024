@@ -2,35 +2,31 @@ package utilities;
 
 public class Node {
 
-	private String name;
-	private Node left;
-	private Node right;
+	private long value;
+	private Node next;
 	
-	public Node(String name) {
-		this.name = name;
-		this.left = null;
-		this.right = null;
+	public Node(long value, Node next) {
+		this.value = value;
+		this.next = next;
 	}
 	
-	public String getName() {
-		return name;
+	public long getValue() {
+		return value;
 	}
-	public Node getLeft() {
-		return left;
+	public Node getNext() {
+		return next;
 	}
-	public Node getRight() {
-		return right;
-	}
-	public void setLeft(Node left) {
-		this.left = left;
-	}
-	public void setRight(Node right) {
-		this.right = right;
+	public void setNext(Node next) {
+		this.next = next;
 	}
 
 	@Override
 	public String toString() {
-		return "name: " + name + ", left: " + left.getName() + ", right: " + right.getName();
+		long nextValue = -1;
+		if(next!=null) {
+			nextValue = next.getValue();
+		}
+		return "{value: " + value + ", next: " + nextValue + "}";
 	}
 
     @Override
@@ -46,11 +42,17 @@ public class Node {
         if(!(obj instanceof Node)) { return false; }
         Node other = (Node) obj;
 
-        if(!this.name.equals(other.name)) { return false; }
-        if(!this.left.getName().equals(other.left.getName())) { return false; }
-        if(!this.right.getName().equals(other.right.getName())) { return false; }
+        if(this.value != other.value) { return false; }
+        if(this.next==null && other.next!=null) { return false; }
+        if(this.next!=null && other.next==null) { return false; }
+        if(this.next==null && other.next==null) { return true; }
+        if(this.getNext().value != (other.getNext().value)) { return false; }
         
         return true;
     }
+
+	public void setValue(long value) {
+		this.value = value;
+	}
 
 }
