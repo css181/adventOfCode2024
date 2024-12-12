@@ -3,6 +3,7 @@ package day11;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import utilities.FileUtility;
 import utilities.Node;
@@ -12,6 +13,7 @@ public class Day11 {
 	private static File file;
 	protected Node firstNode;
 	public long nodeCount;
+	public HashMap<StoneKey, Long> stoneKeyToAnswer = new HashMap<StoneKey, Long>();
 
 	public Day11() {
 		URL fileName = getClass().getResource("Input.txt");
@@ -21,6 +23,7 @@ public class Day11 {
 	public Day11(File file) {
 		firstNode = null;
 		nodeCount = 0;
+		stoneKeyToAnswer = new HashMap<StoneKey, Long>();
 		setFileToUse(file);
 		populateInput();
 	}
@@ -74,9 +77,62 @@ public class Day11 {
 		nodeCount++;
 	}
 	
+	public void blink6Times() {
+		blinkXTimes(6);
+	}
+	
 	public void blink25Times() {
-		for(int x=0; x<25; x++) {
-			blink();
+//		for(int x=0; x<25; x++) {
+//			blink();
+//		}
+		blinkXTimes(25);
+	}
+	public void blink75Times() {
+		blinkXTimes(75);
+	}
+	private void blinkXTimes(int times) {
+		Node curNode = firstNode;
+		nodeCount=0;
+		stoneKeyToAnswer = new HashMap<StoneKey, Long>();
+		do {
+			long answer = performBlinkForStoneValue(curNode.getValue(), 0, times, stoneKeyToAnswer);
+			nodeCount+= answer;
+			System.out.println("Answer for " + curNode.getValue() + ", is " + answer + " for " + times + " times");
+			curNode = curNode.getNext();
+		} while (curNode!=null);
+	}
+	
+	public long performBlinkForStoneValue(long value, int step, int last, HashMap<StoneKey, Long> cache) {
+		if(step==last) {
+			return 1;
+		}
+		StoneKey key = new StoneKey(value, step);
+		if(value==0) {
+			if(cache.get(key)!=null) {
+				return cache.get(key);
+			}
+			long answer = performBlinkForStoneValue(1, step+1, last, cache);
+			cache.put(key, answer);
+			return answer;
+		}
+		else if(hasEvenNumberOfDigits(value)) {
+			if(cache.get(key)!=null) {
+				return cache.get(key);
+			}
+			String curValueString = String.valueOf(value);
+			String leftHalf = curValueString.substring(0, curValueString.length()/2);
+			String rightHalf = curValueString.substring(curValueString.length()/2);
+			long answer = performBlinkForStoneValue(Long.valueOf(leftHalf), step+1, last, cache) + 
+					performBlinkForStoneValue(Long.valueOf(rightHalf), step+1, last, cache);
+			cache.put(key, answer);
+			return answer;
+		} else {
+			if(cache.get(key)!=null) {
+				return cache.get(key);
+			}
+			long answer = performBlinkForStoneValue(value * 2024, step+1, last, cache);
+			cache.put(key, answer);
+			return answer;
 		}
 	}
 }

@@ -1,8 +1,6 @@
 package day11;
 
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.io.File;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -17,17 +15,10 @@ public class Day11Part2 {
 		day11 = new Day11(new File(getClass().getResource("SampleInput.txt").getPath()));
 	}
 	
-	@Test 
-	void can_calculate_num_of_times_X_is_in_rightList() {
-//		assertEquals(3, dayX.numOfTimesNumIsInRightList(3));
-//		assertEquals(1, dayX.numOfTimesNumIsInRightList(4));
-//		assertEquals(0, dayX.numOfTimesNumIsInRightList(2));
-//		assertEquals(0, dayX.numOfTimesNumIsInRightList(1));
-	}
-	
 	@Test
 	void part2_answer() throws Exception {
 		day11 = new Day11();
-//		System.out.println(dayX.getAnswer());
+		day11.blink75Times();
+		System.out.println(day11.nodeCount);
 	}
 }

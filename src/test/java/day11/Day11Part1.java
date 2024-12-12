@@ -80,6 +80,13 @@ public class Day11Part1 {
 		assertEquals(expected3, day11.firstNode.getNext().getNext());
 		assertEquals(expected4.getValue(), day11.firstNode.getNext().getNext().getNext().getValue());
 	}
+
+	@Test
+	void verify_after_6_blinks_sample_has_22_stones() throws Exception {
+		day11.blink6Times();
+		
+		assertEquals(22, day11.nodeCount);
+	}
 	
 	@Test
 	void verify_after_25_blinks_sample_has_55312_stones() throws Exception {
