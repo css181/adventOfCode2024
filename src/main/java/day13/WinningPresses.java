@@ -2,29 +2,29 @@ package day13;
 
 public class WinningPresses {
 
-	private int a;
-	private int b;
+	private double a;
+	private double b;
 
 
-	public WinningPresses(int a, int b) {
+	public WinningPresses(double a, double b) {
 		super();
 		this.a = a;
 		this.b = b;
 	}
 
-	public int getA() {
+	public double getA() {
 		return a;
 	}
 
-	public void setA(int a) {
+	public void setA(double a) {
 		this.a = a;
 	}
 
-	public int getB() {
+	public double getB() {
 		return b;
 	}
 
-	public void setB(int b) {
+	public void setB(double b) {
 		this.b = b;
 	}
 

@@ -13,8 +13,8 @@ public class ClawMachine {
 				Integer.valueOf(aButton.substring(aButton.indexOf("Y+")+2)));
 		this.Bbutton = new Coordinate(Integer.valueOf(bButton.substring(bButton.indexOf("X+")+2, bButton.indexOf(","))), 
 				Integer.valueOf(bButton.substring(bButton.indexOf("Y+")+2)));
-		this.prize = new Coordinate(Integer.valueOf(prize.substring(prize.indexOf("X=")+2, prize.indexOf(","))),
-				Integer.valueOf(prize.substring(prize.indexOf("Y=")+2)));
+		this.prize = new Coordinate(Long.valueOf(prize.substring(prize.indexOf("X=")+2, prize.indexOf(","))),
+				Long.valueOf(prize.substring(prize.indexOf("Y=")+2)));
 	}
 	
 

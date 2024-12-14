@@ -44,30 +44,45 @@ public class Day13 {
 	}
 	
 	private WinningPresses calculateWinningForMachine(ClawMachine machine) {
-		int prizeX = machine.getPrize().getX();
-		int prizeY = machine.getPrize().getY();
+		long pX = machine.getPrize().getX();
+		long pY = machine.getPrize().getY();
 		
-		int aX = machine.getAbutton().getX();
-		int aY = machine.getAbutton().getY();
-		int bX = machine.getBbutton().getX();
-		int bY = machine.getBbutton().getY();
-		for(int i=0; i<100; i++) {
-			for(int j=0; j<100; j++) {
-				if((aX*i + bX*j == prizeX)  && (aY*i + bY*j == prizeY)) {
-					return new WinningPresses(i, j);
-				}
-			}
+		long aX = machine.getAbutton().getX();
+		long aY = machine.getAbutton().getY();
+		long bX = machine.getBbutton().getX();
+		long bY = machine.getBbutton().getY();
+		
+		double as = (pX*bY - pY*bX) / (aX*bY - aY*bX);
+		double bs1 = (pX - aX*as) / bX;
+		double bs2 = (pY - aY*as) / bY;
+		if((aX*as+bX*bs1==pX) && (aY*as+bY*bs1==pY) && (as>0) && (bs1>0) && (bs1==bs2)) {
+				return new WinningPresses(as, bs1);
 		}
+		
+//		for(int i=0; i<100; i++) {
+//			for(int j=0; j<100; j++) {
+//				if(aX*i+bX*j==pX && aY*i+bY*j==pY) {
+//					return new WinningPresses(i, j);
+//				}
+//			}
+//		}
 		return null;
 	}
 
-	public Integer calculateTotalCostForWinningAllPossibleMachines() {
-		int total = 0;
+	public long calculateTotalCostForWinningAllPossibleMachines() {
+		long total = 0;
 		for (WinningPresses presses : calculateWinningPresses()) {
 			if(presses!=null) {
 				total+=presses.getB() + presses.getA()*3;
 			}
 		}
 		return total;
+	}
+	
+	public void adjustPrizesForPart2() {
+		for (ClawMachine clawMachine : clawMacines) {
+			Coordinate p = clawMachine.getPrize();
+			clawMachine.setPrize(new Coordinate(p.getX()+10000000000000l, p.getY()+10000000000000l));
+		}
 	}
 }

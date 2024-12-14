@@ -2,17 +2,17 @@ package utilities;
 
 public class Coordinate {
 
-	private int x;
-	private int y;
-	public Coordinate(int x, int y) {
+	private long x;
+	private long y;
+	public Coordinate(long x, long y) {
 		super();
 		this.x = x;
 		this.y = y;
 	}
-	public int getX() {
+	public long getX() {
 		return x;
 	}
-	public int getY() {
+	public long getY() {
 		return y;
 	}
 	
