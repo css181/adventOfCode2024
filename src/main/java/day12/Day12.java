@@ -144,4 +144,10 @@ public class Day12 {
 		}
 		return cost;
 	}
+	
+	
+	public Integer getSidesOfRegion(HashSet<Coordinate> hashSet) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
