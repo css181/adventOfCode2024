@@ -50,8 +50,8 @@ public class Day12 {
 			}
 		}
 	}
-	private void addAllConnectedToRegion(char curChar, int row, int col, HashSet<Coordinate> region) {
-		if((row<0) || (row>=map.getArea().size()) || (col<0) || (col>=map.getArea().get(row).size())) {
+	private void addAllConnectedToRegion(char curChar, long row, long col, HashSet<Coordinate> region) {
+		if((row<0) || (row>=map.getArea().size()) || (col<0) || (col>=map.getArea().get((int)row).size())) {
 			return;
 		}
 		Coordinate curCoordinate = new Coordinate(col, row);
@@ -60,7 +60,7 @@ public class Day12 {
 				return;
 			}
 		}
-		if(map.getArea().get(row).get(col)!=curChar) {
+		if(map.getArea().get((int)row).get((int)col)!=curChar) {
 			return;
 		}
 		region.add(curCoordinate);

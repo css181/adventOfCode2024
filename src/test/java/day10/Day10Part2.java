@@ -35,6 +35,7 @@ public class Day10Part2 {
 	@Test
 	void part2_answer() throws Exception {
 		day10 = new Day10();
-		System.out.println(day10.getSumOfAllTrailheadScoresAllowingMultiplePaths());
+//		System.out.println(day10.getSumOfAllTrailheadScoresAllowingMultiplePaths());
+		assertEquals(1794, day10.getSumOfAllTrailheadScoresAllowingMultiplePaths());
 	}
 }

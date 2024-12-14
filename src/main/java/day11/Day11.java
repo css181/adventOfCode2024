@@ -97,7 +97,7 @@ public class Day11 {
 		do {
 			long answer = performBlinkForStoneValue(curNode.getValue(), 0, times, stoneKeyToAnswer);
 			nodeCount+= answer;
-			System.out.println("Answer for " + curNode.getValue() + ", is " + answer + " for " + times + " times");
+//			System.out.println("Answer for " + curNode.getValue() + ", is " + answer + " for " + times + " times");
 			curNode = curNode.getNext();
 		} while (curNode!=null);
 	}

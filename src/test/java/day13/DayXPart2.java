@@ -44,6 +44,7 @@ public class DayXPart2 {
 		day13 = new Day13();
 		day13.adjustPrizesForPart2();
 		
-		System.out.println(day13.calculateTotalCostForWinningAllPossibleMachines());
+//		System.out.println(day13.calculateTotalCostForWinningAllPossibleMachines());
+		assertEquals(108528956728655l, day13.calculateTotalCostForWinningAllPossibleMachines());
 	}
 }

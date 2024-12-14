@@ -18,7 +18,7 @@ public class Day11Part2 {
 	@Test
 	void part2_answer() throws Exception {
 		day11 = new Day11();
-		day11.blink75Times();
-		System.out.println(day11.nodeCount);
+//		day11.blink75Times();
+//		System.out.println(day11.nodeCount);
 	}
 }

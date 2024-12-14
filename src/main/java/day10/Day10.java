@@ -45,10 +45,10 @@ public class Day10 {
 		for (Coordinate trailhead : trailheads) {
 			alreadyAdded9Coordinates = new ArrayList<Coordinate>(); //If there are multiple paths to the same 9 coordinate, only add that coordinate once
 			scores.add( 
-					isValidTrailToA9(0, trailhead.getY()-1, trailhead.getX(), alreadyAdded9Coordinates) +
-					isValidTrailToA9(0, trailhead.getY()+1, trailhead.getX(), alreadyAdded9Coordinates) +
-					isValidTrailToA9(0, trailhead.getY(), trailhead.getX()-1, alreadyAdded9Coordinates) +
-					isValidTrailToA9(0, trailhead.getY(), trailhead.getX()+1, alreadyAdded9Coordinates)
+					isValidTrailToA9(0, (int)trailhead.getY()-1, (int)trailhead.getX(), alreadyAdded9Coordinates) +
+					isValidTrailToA9(0, (int)trailhead.getY()+1, (int)trailhead.getX(), alreadyAdded9Coordinates) +
+					isValidTrailToA9(0, (int)trailhead.getY(), (int)trailhead.getX()-1, alreadyAdded9Coordinates) +
+					isValidTrailToA9(0, (int)trailhead.getY(), (int)trailhead.getX()+1, alreadyAdded9Coordinates)
 			);
 		}
 		return scores;
@@ -93,10 +93,10 @@ public class Day10 {
 		ArrayList<Integer> scores = new ArrayList<Integer>();
 		for (Coordinate trailhead : trailheads) {
 			scores.add( 
-					isValidTrailToA9AllowingMultiplePaths(0, trailhead.getY()-1, trailhead.getX()) +
-					isValidTrailToA9AllowingMultiplePaths(0, trailhead.getY()+1, trailhead.getX()) +
-					isValidTrailToA9AllowingMultiplePaths(0, trailhead.getY(), trailhead.getX()-1) +
-					isValidTrailToA9AllowingMultiplePaths(0, trailhead.getY(), trailhead.getX()+1)
+					isValidTrailToA9AllowingMultiplePaths(0, (int)trailhead.getY()-1, (int)trailhead.getX()) +
+					isValidTrailToA9AllowingMultiplePaths(0, (int)trailhead.getY()+1, (int)trailhead.getX()) +
+					isValidTrailToA9AllowingMultiplePaths(0, (int)trailhead.getY(), (int)trailhead.getX()-1) +
+					isValidTrailToA9AllowingMultiplePaths(0, (int)trailhead.getY(), (int)trailhead.getX()+1)
 			);
 		}
 		return scores;

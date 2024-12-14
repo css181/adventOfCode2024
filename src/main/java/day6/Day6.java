@@ -36,8 +36,8 @@ public class Day6 {
 	//returns 0 if we walk out of the area.
 	public int walk(boolean replaceWithX) {
 		if(map.getDirection()==Map.GUARD_DIRECTION.UP) {
-			int col = map.getGuardSpot().getX();
-			for(int row=map.getGuardSpot().getY(); row>=1; row--) {
+			int col = (int)map.getGuardSpot().getX();
+			for(int row=(int)map.getGuardSpot().getY(); row>=1; row--) {
 				if(isUnobstructed(row-1,col)) {
 					map.moveGuard(row-1, col, replaceWithX);
 				} else {
@@ -46,8 +46,8 @@ public class Day6 {
 				}
 			}
 		} else if(map.getDirection()==Map.GUARD_DIRECTION.RIGHT) {
-			int row = map.getGuardSpot().getY();
-			for(int col=map.getGuardSpot().getX(); col<map.getArea().get(row).size()-1; col++) {
+			int row = (int)map.getGuardSpot().getY();
+			for(int col=(int)map.getGuardSpot().getX(); col<map.getArea().get(row).size()-1; col++) {
 				if(isUnobstructed(row,col+1)) {
 					map.moveGuard(row,col+1, replaceWithX);
 				} else {
@@ -56,8 +56,8 @@ public class Day6 {
 				}
 			}
 		} else if(map.getDirection()==Map.GUARD_DIRECTION.DOWN) {
-			int col = map.getGuardSpot().getX();
-			for(int row=map.getGuardSpot().getY(); row<map.getArea().size()-1; row++) {
+			int col = (int)map.getGuardSpot().getX();
+			for(int row=(int)map.getGuardSpot().getY(); row<map.getArea().size()-1; row++) {
 				if(isUnobstructed(row+1,col)) {
 					map.moveGuard(row+1, col, replaceWithX);
 				} else {
@@ -66,8 +66,8 @@ public class Day6 {
 				}
 			}
 		} else if(map.getDirection()==Map.GUARD_DIRECTION.LEFT) {
-			int row = map.getGuardSpot().getY();
-			for(int col=map.getGuardSpot().getX(); col>=1; col--) {
+			int row = (int)map.getGuardSpot().getY();
+			for(int col=(int)map.getGuardSpot().getX(); col>=1; col--) {
 				if(isUnobstructed(row,col-1)) {
 					map.moveGuard(row,col-1, replaceWithX);
 				} else {
@@ -89,19 +89,19 @@ public class Day6 {
 		switch (map.getDirection()) {
 		case UP:
 			map.setDirection(GUARD_DIRECTION.RIGHT);
-			map.getArea().get(guardSpot.getY()).set(guardSpot.getX(), '>');
+			map.getArea().get((int)guardSpot.getY()).set((int)guardSpot.getX(), '>');
 			break;
 		case RIGHT:
 			map.setDirection(GUARD_DIRECTION.DOWN);
-			map.getArea().get(guardSpot.getY()).set(guardSpot.getX(), 'V');
+			map.getArea().get((int)guardSpot.getY()).set((int)guardSpot.getX(), 'V');
 			break;
 		case DOWN:
 			map.setDirection(GUARD_DIRECTION.LEFT);
-			map.getArea().get(guardSpot.getY()).set(guardSpot.getX(), '<');
+			map.getArea().get((int)guardSpot.getY()).set((int)guardSpot.getX(), '<');
 			break;
 		case LEFT:
 			map.setDirection(GUARD_DIRECTION.UP);
-			map.getArea().get(guardSpot.getY()).set(guardSpot.getX(), '^');
+			map.getArea().get((int)guardSpot.getY()).set((int)guardSpot.getX(), '^');
 			break;
 		default:
 			System.err.println("INVALID direction. Must be UP, DOWN, LEFT, or RIGHT.");

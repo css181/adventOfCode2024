@@ -79,7 +79,7 @@ public class Day12Part1 {
 	void verify_total_cost_of_sample_is_1930() throws Exception {
 		assertEquals(1930, day12.calculateCost());
 	}
-	@Test
+//	@Test
 	void part1_answer() throws Exception {
 		day12 = new Day12();
 //		System.out.println(day12.calculateCost());

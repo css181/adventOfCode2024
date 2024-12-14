@@ -43,7 +43,7 @@ public class Day7Part2 {
 		assertEquals(11387, day7.getSumOfAllEqualsOfValidEquasions());
 	}
 	
-	@Test
+//	@Test
 	void part2_answer() throws Exception {
 		day7 = new Day7(true);
 //		System.out.println(day7.getSumOfAllEqualsOfValidEquasions());

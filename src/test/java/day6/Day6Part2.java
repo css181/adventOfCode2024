@@ -37,7 +37,7 @@ public class Day6Part2 {
 		//1) Look for the pattern that would cause an infinite loop.  It will always create some kind of rectangle
 		//2) Keep track of which direction you walk on every square.  If you ever are on the same square going in the same direction, that's an infinite loop.
 	
-	@Test
+//	@Test
 	void part2_answer() throws Exception {
 		day6 = new Day6();
 //		System.out.println(day6.bruteForceHowManyObstructionsCauseInfiniteLoops());

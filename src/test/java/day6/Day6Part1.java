@@ -68,19 +68,19 @@ public class Day6Part1 {
 		Map map = day6.map;
 		Coordinate guardSpot = map.getGuardSpot();
 		assertEquals(Map.GUARD_DIRECTION.UP, day6.map.getDirection());
-		assertEquals('^', map.getArea().get(guardSpot.getY()).get(guardSpot.getX()));
+		assertEquals('^', map.getArea().get((int)guardSpot.getY()).get((int)guardSpot.getX()));
 		
 		day6.turn();
 		assertEquals(Map.GUARD_DIRECTION.RIGHT, day6.map.getDirection());
-		assertEquals('>', map.getArea().get(guardSpot.getY()).get(guardSpot.getX()));
+		assertEquals('>', map.getArea().get((int)guardSpot.getY()).get((int)guardSpot.getX()));
 
 		day6.turn();
 		assertEquals(Map.GUARD_DIRECTION.DOWN, day6.map.getDirection());
-		assertEquals('V', map.getArea().get(guardSpot.getY()).get(guardSpot.getX()));
+		assertEquals('V', map.getArea().get((int)guardSpot.getY()).get((int)guardSpot.getX()));
 
 		day6.turn();
 		assertEquals(Map.GUARD_DIRECTION.LEFT, day6.map.getDirection());
-		assertEquals('<', map.getArea().get(guardSpot.getY()).get(guardSpot.getX()));
+		assertEquals('<', map.getArea().get((int)guardSpot.getY()).get((int)guardSpot.getX()));
 	}
 	
 	@Test

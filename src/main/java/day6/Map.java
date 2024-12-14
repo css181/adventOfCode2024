@@ -72,17 +72,17 @@ public class Map {
     
     
 	public void moveGuard(int row, int col, boolean replaceWithX) {
-		Character curGuardChar = area.get(guardSpot.getY()).get(guardSpot.getX());
+		Character curGuardChar = area.get((int)guardSpot.getY()).get((int)guardSpot.getX());
 		//Re-assign the current spot to an X
-		ArrayList<Character> curGuardRow = area.get(guardSpot.getY());
-		if(replaceWithX) {curGuardRow.set(guardSpot.getX(), 'X'); }
+		ArrayList<Character> curGuardRow = area.get((int)guardSpot.getY());
+		if(replaceWithX) {curGuardRow.set((int)guardSpot.getX(), 'X'); }
 		
 		//Move the Guard spot
 		guardSpot = new Coordinate(col, row);
 		
 		//Re-assign the new Guard spot with ^
-		curGuardRow = area.get(guardSpot.getY());
-		curGuardRow.set(guardSpot.getX(), curGuardChar);
+		curGuardRow = area.get((int)guardSpot.getY());
+		curGuardRow.set((int)guardSpot.getX(), curGuardChar);
 	}
 
 }
