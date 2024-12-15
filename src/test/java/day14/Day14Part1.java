@@ -112,6 +112,7 @@ public class Day14Part1 {
 		assertEquals(101, Day14.maxCols);
 		assertEquals(103, Day14.maxRows);
 		day14.moveTimes(100);
-		System.out.println(day14.getSafetyFactor());
+//		System.out.println(day14.getSafetyFactor());
+		assertEquals(225648864, day14.getSafetyFactor());
 	}
 }

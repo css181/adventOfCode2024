@@ -47,12 +47,8 @@ public class Day14 {
 			for (Robot robot : robots) {
 				robot.move();
 			}
+			setupMap();
 		}
-//		System.out.println("Robot Positions after " + i + " moves");
-//		for (Robot robot : robots) {
-//			System.out.println(robot.getPosition());
-//		}
-		setupMap();
 	}
 	
 	private void setupMap() {
@@ -105,5 +101,25 @@ public class Day14 {
 			total*=integer;
 		}
 		return total;
+	}
+	
+	public int moveTimesUntilTree() {
+		int maxSec = 10000;
+		int seconds = 0;
+		do {
+			System.out.println("Checking: " + seconds);
+			moveTimes(1);
+			if(mapHasManyRobotsNextToEachOther()) {
+				System.out.println("After " + seconds + " seconds map is:");
+				System.out.println(map);
+				break;
+			}
+			seconds++;
+		} while (seconds<maxSec);
+		return seconds;
+	}
+	
+	private boolean mapHasManyRobotsNextToEachOther() {
+		return map.toString().contains("111111");
 	}
 }

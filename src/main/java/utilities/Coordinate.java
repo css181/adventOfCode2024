@@ -44,4 +44,7 @@ public class Coordinate {
 	public Coordinate getDistanceFrom(Coordinate coordB) {
 		return new Coordinate(Math.abs(x-coordB.x), Math.abs(y-coordB.y));
 	}
+	public int getTotalDistanceFrom(Coordinate coordB) {
+		return (int) (Math.abs(x-coordB.x)+ Math.abs(y-coordB.y)); 
+	}
 }
